@@ -1,0 +1,344 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\todolist\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1B6C39A0-75F9-49E7-B4CC-42908526C437}|Api\\Api.csproj|d:\\todolist\\api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1B6C39A0-75F9-49E7-B4CC-42908526C437}|Api\\Api.csproj|solutionrelative:api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1B6C39A0-75F9-49E7-B4CC-42908526C437}|Api\\Api.csproj|d:\\todolist\\api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{1B6C39A0-75F9-49E7-B4CC-42908526C437}|Api\\Api.csproj|solutionrelative:api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1B6C39A0-75F9-49E7-B4CC-42908526C437}|Api\\Api.csproj|d:\\todolist\\api\\controllers\\taskscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1B6C39A0-75F9-49E7-B4CC-42908526C437}|Api\\Api.csproj|solutionrelative:api\\controllers\\taskscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE2EEAF5-627B-415F-B5F8-0AA90C186855}|Api.IntegrationTests\\Api.IntegrationTests.csproj|d:\\todolist\\api.integrationtests\\tasksintegrationtests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE2EEAF5-627B-415F-B5F8-0AA90C186855}|Api.IntegrationTests\\Api.IntegrationTests.csproj|solutionrelative:api.integrationtests\\tasksintegrationtests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F04F0438-6A4D-4FB3-83BF-2D42999D34CC}|Infrastructure\\Infrastructure.csproj|d:\\todolist\\infrastructure\\data\\applicationdbcontextseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F04F0438-6A4D-4FB3-83BF-2D42999D34CC}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\data\\applicationdbcontextseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1B6C39A0-75F9-49E7-B4CC-42908526C437}|Api\\Api.csproj|d:\\todolist\\api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1B6C39A0-75F9-49E7-B4CC-42908526C437}|Api\\Api.csproj|solutionrelative:api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A064E28-F286-4310-870D-3C778AF9C167}|Solution Items{3A064E28-F286-4310-870D-3C778AF9C167}|D:\\todolist\\docker-compose.yml||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{3A064E28-F286-4310-870D-3C778AF9C167}|Solution Items{3A064E28-F286-4310-870D-3C778AF9C167}|solutionrelative:docker-compose.yml||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{85B4FC77-91EE-44DF-BC9B-DBD1E96A2102}|Core\\Core.csproj|d:\\todolist\\core\\entities\\taskitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{85B4FC77-91EE-44DF-BC9B-DBD1E96A2102}|Core\\Core.csproj|solutionrelative:core\\entities\\taskitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F04F0438-6A4D-4FB3-83BF-2D42999D34CC}|Infrastructure\\Infrastructure.csproj|d:\\todolist\\infrastructure\\migrations\\20250504222746_fixmodelchanges.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F04F0438-6A4D-4FB3-83BF-2D42999D34CC}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\migrations\\20250504222746_fixmodelchanges.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1B6C39A0-75F9-49E7-B4CC-42908526C437}|Api\\Api.csproj|d:\\todolist\\api\\api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{1B6C39A0-75F9-49E7-B4CC-42908526C437}|Api\\Api.csproj|solutionrelative:api\\api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1B6C39A0-75F9-49E7-B4CC-42908526C437}|Api\\Api.csproj|d:\\todolist\\api\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{1B6C39A0-75F9-49E7-B4CC-42908526C437}|Api\\Api.csproj|solutionrelative:api\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{950DBFBB-5F13-4747-870C-CE0CC45CB157}|Application.UnitTests\\Application.UnitTests.csproj|d:\\todolist\\application.unittests\\taskservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{950DBFBB-5F13-4747-870C-CE0CC45CB157}|Application.UnitTests\\Application.UnitTests.csproj|solutionrelative:application.unittests\\taskservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1B6C39A0-75F9-49E7-B4CC-42908526C437}|Api\\Api.csproj|d:\\todolist\\api\\middlewares\\exceptionhandlingmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1B6C39A0-75F9-49E7-B4CC-42908526C437}|Api\\Api.csproj|solutionrelative:api\\middlewares\\exceptionhandlingmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{950DBFBB-5F13-4747-870C-CE0CC45CB157}|Application.UnitTests\\Application.UnitTests.csproj|d:\\todolist\\application.unittests\\invitationservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{950DBFBB-5F13-4747-870C-CE0CC45CB157}|Application.UnitTests\\Application.UnitTests.csproj|solutionrelative:application.unittests\\invitationservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{950DBFBB-5F13-4747-870C-CE0CC45CB157}|Application.UnitTests\\Application.UnitTests.csproj|d:\\todolist\\application.unittests\\authservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{950DBFBB-5F13-4747-870C-CE0CC45CB157}|Application.UnitTests\\Application.UnitTests.csproj|solutionrelative:application.unittests\\authservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{174E12E7-FBF9-497E-B4FF-9CACC1617FC1}|Application\\Application.csproj|d:\\todolist\\application\\services\\invitationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{174E12E7-FBF9-497E-B4FF-9CACC1617FC1}|Application\\Application.csproj|solutionrelative:application\\services\\invitationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{174E12E7-FBF9-497E-B4FF-9CACC1617FC1}|Application\\Application.csproj|d:\\todolist\\application\\services\\taskservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{174E12E7-FBF9-497E-B4FF-9CACC1617FC1}|Application\\Application.csproj|solutionrelative:application\\services\\taskservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{174E12E7-FBF9-497E-B4FF-9CACC1617FC1}|Application\\Application.csproj|d:\\todolist\\application\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{174E12E7-FBF9-497E-B4FF-9CACC1617FC1}|Application\\Application.csproj|solutionrelative:application\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1B6C39A0-75F9-49E7-B4CC-42908526C437}|Api\\Api.csproj|d:\\todolist\\api\\middlewares\\errorresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1B6C39A0-75F9-49E7-B4CC-42908526C437}|Api\\Api.csproj|solutionrelative:api\\middlewares\\errorresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{47e8ae53-6b87-4489-b700-1453319ed417}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{47e8ae53-6b87-4489-b700-1453319ed417}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TasksController.cs",
+              "DocumentMoniker": "D:\\todolist\\Api\\Controllers\\TasksController.cs",
+              "RelativeDocumentMoniker": "Api\\Controllers\\TasksController.cs",
+              "ToolTip": "D:\\todolist\\Api\\Controllers\\TasksController.cs",
+              "RelativeToolTip": "Api\\Controllers\\TasksController.cs",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAkwFYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-04T23:02:09.513Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\todolist\\Api\\appsettings.json",
+              "RelativeDocumentMoniker": "Api\\appsettings.json",
+              "ToolTip": "D:\\todolist\\Api\\appsettings.json",
+              "RelativeToolTip": "Api\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-04T22:16:57.296Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\todolist\\Api\\Program.cs",
+              "RelativeDocumentMoniker": "Api\\Program.cs",
+              "ToolTip": "D:\\todolist\\Api\\Program.cs",
+              "RelativeToolTip": "Api\\Program.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAAwB0AAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-04T10:16:22.768Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "TasksIntegrationTests.cs",
+              "DocumentMoniker": "D:\\todolist\\Api.IntegrationTests\\TasksIntegrationTests.cs",
+              "RelativeDocumentMoniker": "Api.IntegrationTests\\TasksIntegrationTests.cs",
+              "ToolTip": "D:\\todolist\\Api.IntegrationTests\\TasksIntegrationTests.cs",
+              "RelativeToolTip": "Api.IntegrationTests\\TasksIntegrationTests.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAuwBcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-04T10:37:00.486Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\todolist\\Api\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "Api\\Controllers\\AuthController.cs",
+              "ToolTip": "D:\\todolist\\Api\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "Api\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAwBIAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-04T10:38:55.679Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ApplicationDbContextSeeder.cs",
+              "DocumentMoniker": "D:\\todolist\\Infrastructure\\Data\\ApplicationDbContextSeeder.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Data\\ApplicationDbContextSeeder.cs",
+              "ToolTip": "D:\\todolist\\Infrastructure\\Data\\ApplicationDbContextSeeder.cs",
+              "RelativeToolTip": "Infrastructure\\Data\\ApplicationDbContextSeeder.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAAwB4AAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-04T21:54:07.138Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "docker-compose.yml",
+              "DocumentMoniker": "D:\\todolist\\docker-compose.yml",
+              "RelativeDocumentMoniker": "docker-compose.yml",
+              "ToolTip": "D:\\todolist\\docker-compose.yml",
+              "RelativeToolTip": "docker-compose.yml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
+              "WhenOpened": "2025-05-04T14:54:01.63Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "TaskItem.cs",
+              "DocumentMoniker": "D:\\todolist\\Core\\Entities\\TaskItem.cs",
+              "RelativeDocumentMoniker": "Core\\Entities\\TaskItem.cs",
+              "ToolTip": "D:\\todolist\\Core\\Entities\\TaskItem.cs",
+              "RelativeToolTip": "Core\\Entities\\TaskItem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-04T22:36:43.888Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Dockerfile",
+              "DocumentMoniker": "D:\\todolist\\Api\\Dockerfile",
+              "RelativeDocumentMoniker": "Api\\Dockerfile",
+              "ToolTip": "D:\\todolist\\Api\\Dockerfile",
+              "RelativeToolTip": "Api\\Dockerfile",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-05-04T21:53:10.051Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "20250504222746_FixModelChanges.cs",
+              "DocumentMoniker": "D:\\todolist\\Infrastructure\\Migrations\\20250504222746_FixModelChanges.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Migrations\\20250504222746_FixModelChanges.cs",
+              "ToolTip": "D:\\todolist\\Infrastructure\\Migrations\\20250504222746_FixModelChanges.cs",
+              "RelativeToolTip": "Infrastructure\\Migrations\\20250504222746_FixModelChanges.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-04T22:28:12.613Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "TaskService.cs",
+              "DocumentMoniker": "D:\\todolist\\Application\\Services\\TaskService.cs",
+              "RelativeDocumentMoniker": "Application\\Services\\TaskService.cs",
+              "ToolTip": "D:\\todolist\\Application\\Services\\TaskService.cs",
+              "RelativeToolTip": "Application\\Services\\TaskService.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAADcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-04T11:02:24.422Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "InvitationServiceTests.cs",
+              "DocumentMoniker": "D:\\todolist\\Application.UnitTests\\InvitationServiceTests.cs",
+              "RelativeDocumentMoniker": "Application.UnitTests\\InvitationServiceTests.cs",
+              "ToolTip": "D:\\todolist\\Application.UnitTests\\InvitationServiceTests.cs",
+              "RelativeToolTip": "Application.UnitTests\\InvitationServiceTests.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABEAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-04T11:55:49.543Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Api.csproj",
+              "DocumentMoniker": "D:\\todolist\\Api\\Api.csproj",
+              "RelativeDocumentMoniker": "Api\\Api.csproj",
+              "ToolTip": "D:\\todolist\\Api\\Api.csproj",
+              "RelativeToolTip": "Api\\Api.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-05-04T14:45:11.013Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "InvitationService.cs",
+              "DocumentMoniker": "D:\\todolist\\Application\\Services\\InvitationService.cs",
+              "RelativeDocumentMoniker": "Application\\Services\\InvitationService.cs",
+              "ToolTip": "D:\\todolist\\Application\\Services\\InvitationService.cs",
+              "RelativeToolTip": "Application\\Services\\InvitationService.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAAwCgAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-04T12:09:05.419Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "TaskServiceTests.cs",
+              "DocumentMoniker": "D:\\todolist\\Application.UnitTests\\TaskServiceTests.cs",
+              "RelativeDocumentMoniker": "Application.UnitTests\\TaskServiceTests.cs",
+              "ToolTip": "D:\\todolist\\Application.UnitTests\\TaskServiceTests.cs",
+              "RelativeToolTip": "Application.UnitTests\\TaskServiceTests.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAAwCwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-04T12:18:01.629Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "AuthServiceTests.cs",
+              "DocumentMoniker": "D:\\todolist\\Application.UnitTests\\AuthServiceTests.cs",
+              "RelativeDocumentMoniker": "Application.UnitTests\\AuthServiceTests.cs",
+              "ToolTip": "D:\\todolist\\Application.UnitTests\\AuthServiceTests.cs",
+              "RelativeToolTip": "Application.UnitTests\\AuthServiceTests.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAIwBQAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-04T10:38:52.506Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ExceptionHandlingMiddleware.cs",
+              "DocumentMoniker": "D:\\todolist\\Api\\Middlewares\\ExceptionHandlingMiddleware.cs",
+              "RelativeDocumentMoniker": "Api\\Middlewares\\ExceptionHandlingMiddleware.cs",
+              "ToolTip": "D:\\todolist\\Api\\Middlewares\\ExceptionHandlingMiddleware.cs",
+              "RelativeToolTip": "Api\\Middlewares\\ExceptionHandlingMiddleware.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAAADoAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-04T10:22:52.124Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "D:\\todolist\\Application\\Services\\AuthService.cs",
+              "RelativeDocumentMoniker": "Application\\Services\\AuthService.cs",
+              "ToolTip": "D:\\todolist\\Application\\Services\\AuthService.cs",
+              "RelativeToolTip": "Application\\Services\\AuthService.cs",
+              "ViewState": "AgIAAE0AAAAAAAAAAAAowGQAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-04T10:56:01.666Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "ErrorResponse.cs",
+              "DocumentMoniker": "D:\\todolist\\Api\\Middlewares\\ErrorResponse.cs",
+              "RelativeDocumentMoniker": "Api\\Middlewares\\ErrorResponse.cs",
+              "ToolTip": "D:\\todolist\\Api\\Middlewares\\ErrorResponse.cs",
+              "RelativeToolTip": "Api\\Middlewares\\ErrorResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAUAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-04T10:29:09.431Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+[2025-05-04 14:58:06 INF] User profile is available. Using 'C:\Users\Hisham\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[2025-05-04 14:58:07 INF] Executed DbCommand (36ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+[2025-05-04 14:58:07 INF] Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+[2025-05-04 14:58:07 INF] Executed DbCommand (3ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+[2025-05-04 14:58:07 INF] Executed DbCommand (1ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+[2025-05-04 14:58:07 INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Tasks] AS [t]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+[2025-05-04 14:58:07 INF] Now listening on: https://localhost:7277
+[2025-05-04 14:58:07 INF] Now listening on: http://localhost:5076
+[2025-05-04 14:58:07 INF] Application started. Press Ctrl+C to shut down.
+[2025-05-04 14:58:07 INF] Hosting environment: Development
+[2025-05-04 14:58:07 INF] Content root path: C:\Users\Hisham\source\repos\ToDoList\Api
+[2025-05-04 14:58:08 INF] Request starting HTTP/2 GET https://localhost:7277/_vs/browserLink - null null
+[2025-05-04 14:58:08 INF] Request starting HTTP/2 GET https://localhost:7277/_framework/aspnetcore-browser-refresh.js - null null
+[2025-05-04 14:58:08 INF] Request finished HTTP/2 GET https://localhost:7277/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 43.8601ms
+[2025-05-04 14:58:08 INF] Request finished HTTP/2 GET https://localhost:7277/_vs/browserLink - 200 null text/javascript; charset=UTF-8 62.7215ms
+[2025-05-04 14:58:08 INF] Request starting HTTP/2 GET https://localhost:7277/swagger/v1/swagger.json - null null
+[2025-05-04 14:58:08 INF] Request finished HTTP/2 GET https://localhost:7277/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 108.508ms
+[2025-05-04 15:02:42 INF] Request starting HTTP/2 GET https://localhost:7277/api/Tasks/GetTasks - null null
+[2025-05-04 15:02:43 INF] Executing endpoint 'API.Controllers.TasksController.GetTasks (Api)'
+[2025-05-04 15:02:43 INF] Route matched with {action = "GetTasks", controller = "Tasks"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetTasks(Core.Helpers.TaskSearchCriteria) on controller API.Controllers.TasksController (Api).
+[2025-05-04 15:02:43 INF] Executing action method API.Controllers.TasksController.GetTasks (Api) - Validation state: "Valid"
+[2025-05-04 15:02:43 INF] Fetching tasks with filter: {"Title":null,"Category":null,"Priority":null,"PageNumber":1,"PageSize":10,"$type":"TaskSearchCriteria"}
+[2025-05-04 15:02:43 WRN] The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
+[2025-05-04 15:02:43 WRN] The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
+[2025-05-04 15:02:43 INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (DbType = Int32), @__p_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[Category], [t].[CreatedAt], [t].[Description], [t].[IsCompleted], [t].[Priority], [t].[Title]
+FROM [Tasks] AS [t]
+ORDER BY (SELECT 1)
+OFFSET @__p_0 ROWS FETCH NEXT @__p_1 ROWS ONLY
+[2025-05-04 15:02:43 INF] Retrieved 10 tasks matching filter
+[2025-05-04 15:02:43 INF] Executed action method API.Controllers.TasksController.GetTasks (Api), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 83.2202ms.
+[2025-05-04 15:02:43 INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[Application.DTOs.TaskDto, Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+[2025-05-04 15:02:43 INF] Executed action API.Controllers.TasksController.GetTasks (Api) in 225.9319ms
+[2025-05-04 15:02:43 INF] Executed endpoint 'API.Controllers.TasksController.GetTasks (Api)'
+[2025-05-04 15:02:43 INF] Request finished HTTP/2 GET https://localhost:7277/api/Tasks/GetTasks - 200 null application/json; charset=utf-8 360.3917ms
