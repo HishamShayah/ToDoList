@@ -1,10 +1,7 @@
 pipeline {
   agent { label 'docker-agent-alpine' }
 
-
-  options {
-    timestamps()
-  }
+  options { timestamps() }
 
   environment {
     DOTNET_CLI_TELEMETRY_OPTOUT = '1'
@@ -13,19 +10,12 @@ pipeline {
   }
 
   stages {
-    stage('Checkout') {
-      agent any
-      steps {
-        checkout scm
-        stash name: 'source', includes: '**/*', useDefaultExcludes: false
-      }
-    }
-
     stage('Build & Unit Tests') {
-      agent any
       steps {
-        unstash 'source'
         sh '''
+          docker version
+          docker info || true
+
           docker run --rm -u root:root \
             -e DOTNET_CLI_TELEMETRY_OPTOUT=$DOTNET_CLI_TELEMETRY_OPTOUT \
             -e DOTNET_NOLOGO=$DOTNET_NOLOGO \
@@ -42,9 +32,7 @@ pipeline {
     }
 
     stage('Docker Build') {
-      agent any
       steps {
-        unstash 'source'
         sh 'docker build -f Api/Dockerfile -t ${IMAGE_NAME}:${BUILD_NUMBER} .'
       }
     }
