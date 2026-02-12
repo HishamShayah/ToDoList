@@ -1,5 +1,5 @@
 pipeline {
-  agent any
+  agent { label 'docker-agent-alpine' }
 
   stages {
     stage('Checkout') {
@@ -9,6 +9,13 @@ pipeline {
     }
 
     stage('Unit Tests') {
+      agent {
+        docker {
+          image 'mcr.microsoft.com/dotnet/sdk:8.0'
+          args '-u root:root'
+          reuseNode true
+        }
+      }
       steps {
         sh '''
           dotnet restore ToDoList.sln
@@ -19,9 +26,7 @@ pipeline {
 
     stage('Compose Up') {
       steps {
-        sh '''
-          docker compose up -d --build
-        '''
+        sh 'docker compose up -d --build'
       }
     }
   }
