@@ -30,14 +30,14 @@ pipeline {
       steps {
         sh '''
           set -eu
-          # تشغيل unit tests داخل كونتينر dotnet (بدون ما تحتاج dotnet على الـ agent)
           docker run --rm \
             -v "$PWD:/src" -w /src \
             mcr.microsoft.com/dotnet/sdk:8.0 \
-            sh -lc "dotnet test Application.UnitTests/Application.UnitTests.csproj -c Release"
+            sh -lc "dotnet test ToDoList.sln -c Release"
         '''
       }
     }
+
 
     // إذا عندك Integration Tests وبدها DB "db" ضمن شبكة compose:
     stage('Integration Tests') {
