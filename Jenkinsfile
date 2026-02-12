@@ -1,22 +1,18 @@
 pipeline {
   agent { label 'docker-agent-alpine' }
 
-  options { timestamps() }
+  options {
+    timestamps()
+  }
+
+  environment {
+    COMPOSE_PROJECT = "todolist-${BUILD_NUMBER}"
+  }
 
   stages {
     stage('Checkout') {
-      steps { checkout scm }
-    }
-
-    stage('Unit Tests') {
-      agent {
-        docker { image 'mcr.microsoft.com/dotnet/sdk:8.0' }
-      }
       steps {
-        sh '''
-          set -eu
-          dotnet test Application.UnitTests/Application.UnitTests.csproj -c Release
-        '''
+        checkout scm
       }
     }
 
@@ -24,23 +20,39 @@ pipeline {
       steps {
         sh '''
           set -eu
-          docker compose up -d --build
-          sleep 25
-          docker compose ps
-          docker compose logs --no-color --tail=120 db
+          docker compose -p "$COMPOSE_PROJECT" up -d --build
+          docker compose -p "$COMPOSE_PROJECT" ps
         '''
       }
     }
 
-    // (اختياري) إذا عندك IntegrationTests
-    stage('Integration Tests') {
-      agent {
-        docker { image 'mcr.microsoft.com/dotnet/sdk:8.0' }
-      }
+    stage('Unit Tests') {
       steps {
         sh '''
           set -eu
-          dotnet test Api.IntegrationTests/Api.IntegrationTests.csproj -c Release
+          # تشغيل unit tests داخل كونتينر dotnet (بدون ما تحتاج dotnet على الـ agent)
+          docker run --rm \
+            -v "$PWD:/src" -w /src \
+            mcr.microsoft.com/dotnet/sdk:8.0 \
+            sh -lc "dotnet test Application.UnitTests/Application.UnitTests.csproj -c Release"
+        '''
+      }
+    }
+
+    // إذا عندك Integration Tests وبدها DB "db" ضمن شبكة compose:
+    stage('Integration Tests') {
+      steps {
+        sh '''
+          set -eu
+
+          # شغّل التكامل ضمن نفس شبكة compose ليقدر يوصل لـ db بالاسم "db"
+          NET="${COMPOSE_PROJECT}_default"
+
+          docker run --rm --network "$NET" \
+            -v "$PWD:/src" -w /src \
+            -e ConnectionStrings__DefaultConnection="Server=db;Database=ToDoListDB;User Id=sa;Password=P@ssw0rd;TrustServerCertificate=True;" \
+            mcr.microsoft.com/dotnet/sdk:8.0 \
+            sh -lc "dotnet test Api.IntegrationTests/Api.IntegrationTests.csproj -c Release"
         '''
       }
     }
@@ -48,7 +60,10 @@ pipeline {
 
   post {
     always {
-      sh 'docker compose down -v || true'
+      sh '''
+        set +e
+        docker compose -p "$COMPOSE_PROJECT" down -v
+      '''
       cleanWs()
     }
   }
