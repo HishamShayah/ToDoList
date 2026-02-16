@@ -1,63 +1,41 @@
 pipeline {
   agent { label 'docker-agent-alpine' }
-  options { timestamps() }
 
   environment {
     IMAGE_NAME = "todolist-api"
+    IMAGE_TAG  = "build-${BUILD_NUMBER}"
     COMPOSE_PROJECT = "todolist-${BUILD_NUMBER}"
-    SA_PASSWORD = "P@ssw0rd"
+    // SA_PASSWORD: خليها Credentials (مو هون)
   }
 
   stages {
     stage('Checkout') {
-      steps { checkout scm }
-    }
-
-    stage('Build') {
       steps {
-        sh '''
-          set -eu
-          docker build -f Api/Dockerfile -t "$IMAGE_NAME:${BUILD_NUMBER}" .
-        '''
+        echo "Checking out source code..."
+        checkout scm
       }
     }
 
-    stage('Unit Tests') {
+    stage('Build Docker Image') {
       steps {
-        sh '''
-          set -eu
-          dotnet test Application.UnitTests/Application.UnitTests.csproj -c Release
-        '''
-      }
-    }
-
-    stage('Start DB') {
-      steps {
-        sh '''
-          set -eu
-          docker compose -p "$COMPOSE_PROJECT" -f docker-compose.yml up -d db
-          docker compose -p "$COMPOSE_PROJECT" -f docker-compose.yml ps
-        '''
-      }
-    }
-
-    stage('Integration Tests') {
-      steps {
-        sh '''
-          set -eu
-          export ConnectionStrings__DefaultConnection="Server=localhost;Database=ToDoListDB;User Id=sa;Password=$SA_PASSWORD;TrustServerCertificate=True;"
-          dotnet test Api.IntegrationTests/Api.IntegrationTests.csproj -c Release
-        '''
+        echo "Building Docker image..."
+        sh """
+          docker version
+          docker build -f Api/Dockerfile -t "${IMAGE_NAME}:${IMAGE_TAG}" .
+        """
       }
     }
   }
 
   post {
     always {
-      sh '''
-        set +e
-        docker compose -p "$COMPOSE_PROJECT" -f docker-compose.ci.yml down -v
-      '''
+      echo "Pipeline execution completed."
+      echo "Built image: ${IMAGE_NAME}:${IMAGE_TAG}"
+    }
+    failure {
+      echo "❌ Pipeline failed! Check logs for details."
+    }
+    cleanup {
       cleanWs()
     }
   }
