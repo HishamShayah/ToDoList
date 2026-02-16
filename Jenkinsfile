@@ -66,10 +66,14 @@ YAML
       steps {
         sh '''
           set -eu
-          docker run --rm \
-            -v "$PWD:/src" -w /src \
+          TEST_CONTAINER="$(docker create -w /src \
             mcr.microsoft.com/dotnet/sdk:8.0 \
-            sh -lc "dotnet test Application.UnitTests/Application.UnitTests.csproj -c Release"
+            sh -lc "dotnet test Application.UnitTests/Application.UnitTests.csproj -c Release")"
+          cleanup() { docker rm -f "$TEST_CONTAINER" >/dev/null 2>&1 || true; }
+          trap cleanup EXIT
+
+          docker cp . "$TEST_CONTAINER":/src
+          docker start -a "$TEST_CONTAINER"
         '''
       }
     }
@@ -82,11 +86,16 @@ YAML
           # Run integration tests in compose network to reach SQL container by host "db".
           NET="${COMPOSE_PROJECT}_default"
 
-          docker run --rm --network "$NET" \
-            -v "$PWD:/src" -w /src \
+          TEST_CONTAINER="$(docker create --network "$NET" \
             -e ConnectionStrings__DefaultConnection="Server=db;Database=ToDoListDB;User Id=sa;Password=P@ssw0rd;TrustServerCertificate=True;" \
+            -w /src \
             mcr.microsoft.com/dotnet/sdk:8.0 \
-            sh -lc "dotnet test Api.IntegrationTests/Api.IntegrationTests.csproj -c Release"
+            sh -lc "dotnet test Api.IntegrationTests/Api.IntegrationTests.csproj -c Release")"
+          cleanup() { docker rm -f "$TEST_CONTAINER" >/dev/null 2>&1 || true; }
+          trap cleanup EXIT
+
+          docker cp . "$TEST_CONTAINER":/src
+          docker start -a "$TEST_CONTAINER"
         '''
       }
     }
