@@ -1,5 +1,5 @@
 pipeline {
-  agent { label 'docker-agent-alpine' }
+agent any
 
   environment {
     REGISTRY    = "localhost:5000"   
