@@ -35,8 +35,23 @@ pipeline {
       steps {
         sh '''
           set -eu
-          docker compose -p "$COMPOSE_PROJECT" up -d db
-          DB_CONTAINER="$(docker compose -p "$COMPOSE_PROJECT" ps -q db)"
+          cat > docker-compose.ci.yml <<'YAML'
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      SA_PASSWORD: "P@ssw0rd"
+      ACCEPT_EULA: "Y"
+    healthcheck:
+      test: ["CMD-SHELL", "(/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P \"$$SA_PASSWORD\" -Q \"SELECT 1\" -C || /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P \"$$SA_PASSWORD\" -Q \"SELECT 1\") > /dev/null 2>&1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+YAML
+
+          docker compose -f docker-compose.ci.yml -p "$COMPOSE_PROJECT" up -d db
+          DB_CONTAINER="$(docker compose -f docker-compose.ci.yml -p "$COMPOSE_PROJECT" ps -q db)"
 
           for i in $(seq 1 30); do
             STATUS="$(docker inspect --format='{{if .State.Health}}{{.State.Health.Status}}{{else}}none{{end}}' "$DB_CONTAINER")"
@@ -45,7 +60,7 @@ pipeline {
           done
 
           [ "$STATUS" = "healthy" ]
-          docker compose -p "$COMPOSE_PROJECT" ps
+          docker compose -f docker-compose.ci.yml -p "$COMPOSE_PROJECT" ps
         '''
       }
     }
@@ -84,6 +99,7 @@ pipeline {
     always {
       sh '''
         set +e
+        docker compose -f docker-compose.ci.yml -p "$COMPOSE_PROJECT" down -v
         docker compose -p "$COMPOSE_PROJECT" down -v
       '''
       cleanWs()
