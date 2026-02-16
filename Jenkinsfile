@@ -42,24 +42,21 @@ services:
     environment:
       SA_PASSWORD: "P@ssw0rd"
       ACCEPT_EULA: "Y"
-    healthcheck:
-      test: ["CMD-SHELL", "(/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P \"$$SA_PASSWORD\" -Q \"SELECT 1\" -C || /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P \"$$SA_PASSWORD\" -Q \"SELECT 1\") > /dev/null 2>&1"]
-      interval: 10s
-      timeout: 5s
-      retries: 12
-      start_period: 20s
 YAML
 
           docker compose -f docker-compose.ci.yml -p "$COMPOSE_PROJECT" up -d db
           DB_CONTAINER="$(docker compose -f docker-compose.ci.yml -p "$COMPOSE_PROJECT" ps -q db)"
 
+          READY=0
           for i in $(seq 1 30); do
-            STATUS="$(docker inspect --format='{{if .State.Health}}{{.State.Health.Status}}{{else}}none{{end}}' "$DB_CONTAINER")"
-            [ "$STATUS" = "healthy" ] && break
+            if docker exec "$DB_CONTAINER" /bin/bash -lc '(/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$SA_PASSWORD" -Q "SELECT 1" -C || /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "$SA_PASSWORD" -Q "SELECT 1") > /dev/null 2>&1'; then
+              READY=1
+              break
+            fi
             sleep 2
           done
 
-          [ "$STATUS" = "healthy" ]
+          [ "$READY" = "1" ]
           docker compose -f docker-compose.ci.yml -p "$COMPOSE_PROJECT" ps
         '''
       }
