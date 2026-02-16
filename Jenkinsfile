@@ -35,8 +35,8 @@ pipeline {
       steps {
         sh '''
           set -eu
-          docker compose -p "$COMPOSE_PROJECT" -f docker-compose.ci.yml up -d db
-          docker compose -p "$COMPOSE_PROJECT" -f docker-compose.ci.yml ps
+          docker compose -p "$COMPOSE_PROJECT" -f docker-compose.yml up -d db
+          docker compose -p "$COMPOSE_PROJECT" -f docker-compose.yml ps
         '''
       }
     }
