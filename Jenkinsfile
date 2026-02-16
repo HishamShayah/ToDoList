@@ -115,25 +115,31 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_URLS: http://+:5000
-      ConnectionStrings__DefaultConnection: Server=db;Database=ToDoListDB;User Id=sa;Password=P@ssw0rd;TrustServerCertificate=True;
+      ConnectionStrings__DefaultConnection: "Server=db;Database=ToDoListDB;User Id=sa;Password=P@ssw0rd;TrustServerCertificate=True;"
     depends_on:
-      db:
-        condition: service_healthy
+      - db
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
       SA_PASSWORD: "P@ssw0rd"
       ACCEPT_EULA: "Y"
-    healthcheck:
-      test: ["CMD-SHELL", "(/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P \"$$SA_PASSWORD\" -Q \"SELECT 1\" -C || /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P \"$$SA_PASSWORD\" -Q \"SELECT 1\") > /dev/null 2>&1"]
-      interval: 10s
-      timeout: 5s
-      retries: 12
-      start_period: 20s
 YAML
 
           docker compose -f docker-compose.deploy.yml -p "$DEPLOY_PROJECT" down -v || true
-          docker compose -f docker-compose.deploy.yml -p "$DEPLOY_PROJECT" up -d
+          docker compose -f docker-compose.deploy.yml -p "$DEPLOY_PROJECT" up -d db
+
+          DB_CONTAINER="$(docker compose -f docker-compose.deploy.yml -p "$DEPLOY_PROJECT" ps -q db)"
+          READY=0
+          for i in $(seq 1 45); do
+            if docker exec "$DB_CONTAINER" /bin/bash -lc '(/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$SA_PASSWORD" -Q "SELECT 1" -C || /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "$SA_PASSWORD" -Q "SELECT 1") > /dev/null 2>&1'; then
+              READY=1
+              break
+            fi
+            sleep 2
+          done
+
+          [ "$READY" = "1" ]
+          docker compose -f docker-compose.deploy.yml -p "$DEPLOY_PROJECT" up -d app
           docker compose -f docker-compose.deploy.yml -p "$DEPLOY_PROJECT" ps
         '''
       }
