@@ -11,6 +11,7 @@ using Hangfire;
 using Hangfire.SqlServer;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
+using Microsoft.Data.SqlClient;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -58,11 +59,11 @@ builder.Services.AddValidatorsFromAssemblyContaining<TokenRequestModelValidator>
 builder.Services.AddValidatorsFromAssemblyContaining<InviteUserDtoValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateTaskDtoValidator>();
 
-
-
 // 2. Configure JWT settings from appsettings
-builder.Services.Configure<JWT>(builder.Configuration.GetSection("JWT"));
-var jwtSettings = builder.Configuration.GetSection("JWT").Get<JWT>();
+var jwtSection = builder.Configuration.GetSection("Jwt");
+builder.Services.Configure<JWT>(jwtSection);
+var jwtSettings = jwtSection.Get<JWT>()
+    ?? throw new InvalidOperationException("Missing JWT configuration section: Jwt.");
 
 // 3. Add JWT Authentication only
 builder.Services.AddAuthentication(options =>
@@ -123,7 +124,9 @@ builder.Services.AddSwaggerGen(c =>
 
 // 6. DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        sqlOptions => sqlOptions.EnableRetryOnFailure()));
 
 // 7. Identity - Core only (No Cookie UI)
 builder.Services.AddIdentityCore<IdentityUser>()
@@ -144,25 +147,7 @@ builder.Services.AddScoped<IInvitationService, InvitationService>();
 builder.Services.AddScoped<ITodoJobs, TodoJobs>();
 
 var app = builder.Build();
-//  Apply migrations automatically
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-
-    var pendingMigrations = await db.Database.GetPendingMigrationsAsync();
-    if (pendingMigrations.Any())
-    {
-        await db.Database.MigrateAsync();
-    }
-
-    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-
-    await ApplicationDbContextSeeder.SeedAsync(db, userManager, roleManager);
-}
-
-
-
+await ApplyMigrationsAndSeedAsync(app);
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
@@ -172,7 +157,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -185,19 +173,25 @@ RecurringJob.AddOrUpdate<ITodoJobs>(
     Cron.Daily(20)
 );
 
-using (var scope = app.Services.CreateScope())
+app.Run();
+static async Task ApplyMigrationsAndSeedAsync(WebApplication app)
 {
+    using var scope = app.Services.CreateScope();
+
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    var pendingMigrations = await db.Database.GetPendingMigrationsAsync();
-    if (pendingMigrations.Any())
-    {
-        await db.Database.MigrateAsync();
-    }
+    await db.Database.MigrateAsync();
 
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
     await ApplicationDbContextSeeder.SeedAsync(db, userManager, roleManager);
 }
 
-app.Run();
+
+static bool ShouldRetryMigration(SqlException ex)
+{
+    // 1801: Database already exists (usually a startup race condition).
+    // 4060/927/945: database not available yet (startup/recovery window).
+    return ex.Number is 1801 or 4060 or 927 or 945;
+}
 public partial class Program { }

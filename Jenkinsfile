@@ -7,6 +7,7 @@ pipeline {
 
   environment {
     COMPOSE_PROJECT = "todolist-${BUILD_NUMBER}"
+    IMAGE_NAME = "todolist-api"
   }
 
   stages {
@@ -16,11 +17,34 @@ pipeline {
       }
     }
 
-    stage('Compose Up') {
+    stage('Build Image') {
       steps {
         sh '''
           set -eu
-          docker compose -p "$COMPOSE_PROJECT" up -d --build
+          docker build -f Api/Dockerfile \
+            -t "$IMAGE_NAME:${BUILD_NUMBER}" \
+            -t "$IMAGE_NAME:latest" .
+          docker image inspect "$IMAGE_NAME:${BUILD_NUMBER}" >/dev/null
+          docker image inspect "$IMAGE_NAME:latest" >/dev/null
+          docker images "$IMAGE_NAME" --format "table {{.Repository}}\\t{{.Tag}}\\t{{.ID}}\\t{{.CreatedSince}}"
+        '''
+      }
+    }
+
+    stage('Start DB for Tests') {
+      steps {
+        sh '''
+          set -eu
+          docker compose -p "$COMPOSE_PROJECT" up -d db
+          DB_CONTAINER="$(docker compose -p "$COMPOSE_PROJECT" ps -q db)"
+
+          for i in $(seq 1 30); do
+            STATUS="$(docker inspect --format='{{if .State.Health}}{{.State.Health.Status}}{{else}}none{{end}}' "$DB_CONTAINER")"
+            [ "$STATUS" = "healthy" ] && break
+            sleep 2
+          done
+
+          [ "$STATUS" = "healthy" ]
           docker compose -p "$COMPOSE_PROJECT" ps
         '''
       }
@@ -33,19 +57,17 @@ pipeline {
           docker run --rm \
             -v "$PWD:/src" -w /src \
             mcr.microsoft.com/dotnet/sdk:8.0 \
-            sh -lc "dotnet test ToDoList.sln -c Release"
+            sh -lc "dotnet test Application.UnitTests/Application.UnitTests.csproj -c Release"
         '''
       }
     }
 
-
-    // إذا عندك Integration Tests وبدها DB "db" ضمن شبكة compose:
     stage('Integration Tests') {
       steps {
         sh '''
           set -eu
 
-          # شغّل التكامل ضمن نفس شبكة compose ليقدر يوصل لـ db بالاسم "db"
+          # Run integration tests in compose network to reach SQL container by host "db".
           NET="${COMPOSE_PROJECT}_default"
 
           docker run --rm --network "$NET" \
