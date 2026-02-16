@@ -2,26 +2,57 @@ pipeline {
   agent { label 'docker-agent-alpine' }
 
   environment {
-    IMAGE_NAME = "todolist-api"
-    IMAGE_TAG  = "build-${BUILD_NUMBER}"
-    COMPOSE_PROJECT = "todolist-${BUILD_NUMBER}"
-    // SA_PASSWORD: خليها Credentials (مو هون)
+    REGISTRY    = "localhost:5000"   
+    IMAGE_NAME  = "todolist-api"
+    IMAGE_TAG   = "build-${env.BUILD_NUMBER}"
+    DOCKERFILE  = "Api/Dockerfile"
+    COMPOSE_FILE = "docker-compose.yml" // 
   }
 
   stages {
+
     stage('Checkout') {
       steps {
-        echo "Checking out source code..."
         checkout scm
       }
     }
 
-    stage('Build Docker Image') {
+    stage('Test') {
       steps {
-        echo "Building Docker image..."
         sh """
-          docker version
-          docker build -f Api/Dockerfile -t "${IMAGE_NAME}:${IMAGE_TAG}" .
+          docker run --rm -v "\$PWD:/src" -w /src mcr.microsoft.com/dotnet/sdk:8.0 \
+          bash -lc "dotnet test -c Release"
+        """
+      }
+    }
+
+    stage('Build Image') {
+      steps {
+        sh """
+          docker build -f ${DOCKERFILE} -t ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} .
+          docker tag ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} ${REGISTRY}/${IMAGE_NAME}:latest
+        """
+      }
+    }
+
+    stage('Push Image') {
+      steps {
+        sh """
+          docker push ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}
+          docker push ${REGISTRY}/${IMAGE_NAME}:latest
+        """
+      }
+    }
+
+    stage('Deploy (Compose)') {
+      steps {
+        sh """
+          export IMAGE_TAG=${IMAGE_TAG}
+          export REGISTRY=${REGISTRY}
+          export IMAGE_NAME=${IMAGE_NAME}
+
+          docker compose -f ${COMPOSE_FILE} pull || true
+          docker compose -f ${COMPOSE_FILE} up -d
         """
       }
     }
@@ -29,13 +60,7 @@ pipeline {
 
   post {
     always {
-      echo "Pipeline execution completed."
-      echo "Built image: ${IMAGE_NAME}:${IMAGE_TAG}"
-    }
-    failure {
-      echo "❌ Pipeline failed! Check logs for details."
-    }
-    cleanup {
+      echo "Built & deployed: ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
       cleanWs()
     }
   }
