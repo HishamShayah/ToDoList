@@ -99,6 +99,45 @@ YAML
         '''
       }
     }
+
+    stage('Deploy Local Stack') {
+      steps {
+        sh '''
+          set -eu
+          DEPLOY_PROJECT="todolist-cd"
+
+          cat > docker-compose.deploy.yml <<'YAML'
+services:
+  app:
+    image: ${IMAGE_NAME}:${BUILD_NUMBER}
+    ports:
+      - "5000:5000"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:5000
+      ConnectionStrings__DefaultConnection: Server=db;Database=ToDoListDB;User Id=sa;Password=P@ssw0rd;TrustServerCertificate=True;
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      SA_PASSWORD: "P@ssw0rd"
+      ACCEPT_EULA: "Y"
+    healthcheck:
+      test: ["CMD-SHELL", "(/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P \"$$SA_PASSWORD\" -Q \"SELECT 1\" -C || /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P \"$$SA_PASSWORD\" -Q \"SELECT 1\") > /dev/null 2>&1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+YAML
+
+          docker compose -f docker-compose.deploy.yml -p "$DEPLOY_PROJECT" down -v || true
+          docker compose -f docker-compose.deploy.yml -p "$DEPLOY_PROJECT" up -d
+          docker compose -f docker-compose.deploy.yml -p "$DEPLOY_PROJECT" ps
+        '''
+      }
+    }
   }
 
   post {
