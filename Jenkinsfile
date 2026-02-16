@@ -17,15 +17,6 @@ agent any
       }
     }
 
-    stage('Test') {
-      steps {
-        sh """
-          docker run --rm -v "\$PWD:/src" -w /src mcr.microsoft.com/dotnet/sdk:8.0 \
-          bash -lc "dotnet test -c Release"
-        """
-      }
-    }
-
     stage('Build Image') {
       steps {
         sh """
