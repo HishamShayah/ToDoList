@@ -176,15 +176,42 @@ RecurringJob.AddOrUpdate<ITodoJobs>(
 app.Run();
 static async Task ApplyMigrationsAndSeedAsync(WebApplication app)
 {
-    using var scope = app.Services.CreateScope();
+    const int maxAttempts = 8;
 
-    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    await db.Database.MigrateAsync();
+    for (var attempt = 1; attempt <= maxAttempts; attempt++)
+    {
+        try
+        {
+            using var scope = app.Services.CreateScope();
 
-    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            var pendingMigrations = await db.Database.GetPendingMigrationsAsync();
+            if (pendingMigrations.Any())
+            {
+                await db.Database.MigrateAsync();
+            }
 
-    await ApplicationDbContextSeeder.SeedAsync(db, userManager, roleManager);
+            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+            await ApplicationDbContextSeeder.SeedAsync(db, userManager, roleManager);
+            return;
+        }
+        catch (SqlException ex) when (attempt < maxAttempts && ShouldRetryMigration(ex))
+        {
+            var delay = TimeSpan.FromSeconds(Math.Min(20, attempt * 2));
+            Log.Warning(
+                ex,
+                "Database migration attempt {Attempt}/{MaxAttempts} failed with SQL error {ErrorNumber}. Retrying in {DelaySeconds}s...",
+                attempt,
+                maxAttempts,
+                ex.Number,
+                (int)delay.TotalSeconds);
+            await Task.Delay(delay);
+        }
+    }
+
+    throw new InvalidOperationException("Database migration and seeding failed after multiple retries.");
 }
 
 
@@ -192,6 +219,7 @@ static bool ShouldRetryMigration(SqlException ex)
 {
     // 1801: Database already exists (usually a startup race condition).
     // 4060/927/945: database not available yet (startup/recovery window).
-    return ex.Number is 1801 or 4060 or 927 or 945;
+    // -2/233/1205/0: transient connection/timeout/deadlock errors seen during startup.
+    return ex.Number is 1801 or 4060 or 927 or 945 or -2 or 233 or 1205 or 0;
 }
 public partial class Program { }
